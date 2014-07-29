@@ -10,7 +10,7 @@ func InitCurses () (err error) {
     stdscr, err := goncurses.Init()
 
     if err != nil {
-        etxt := fmt.Sprintf("curses.InitCurses/*/%s", err)
+        etxt := fmt.Sprintf("go-curses.InitCurses/*/%s", err)
         err = errors.New(etxt)
         return
     }
@@ -47,12 +47,15 @@ type Curses struct {
 }
 
 func CursesWindow (height, width, starty, startx int) (cw Curses, err error) {
+ //   var window goncurses.Window
+
     cw.height = height
     cw.width = width
     cw.posY = starty
     cw.posX = startx
 
-    cw.win, err = goncurses.NewWindow(height, width, starty, startx)
+    window, err := goncurses.NewWindow(height, width, starty, startx)
+    cw.win = *window
 
     if err != nil {
       etxt := fmt.Sprintf("curses.CursesWindow/*/%s", err)
@@ -113,7 +116,7 @@ func (c *Curses) GetSize () (h, w int) {
 }
 
 func (c *Curses) GetYX () (y, x int) {
-    y, x = c.win.Getyx()
+    y, x = c.win.YX()
 
     return
 }
