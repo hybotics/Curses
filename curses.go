@@ -30,8 +30,8 @@ type Curses struct {
     // The curses window structure
     win goncurses.Window
 
-    yMax int
-    xMax int
+    YMax int
+    XMax int
 
     //  Size of the window
     height int
@@ -69,7 +69,7 @@ func CursesWindow (height, width, starty, startx int) (cw Curses, err error) {
       etxt := fmt.Sprintf("curses.CursesWindow/*/%s", err)
       err = errors.New(etxt)
     } else {
-      cw.yMax, cw.xMax = cw.GetMaxYX()
+      cw.YMax, cw.XMax = cw.GetMaxYX()
 
       // Turn the cursor OFF
       SetCursor(0)
@@ -102,8 +102,8 @@ func (c *Curses) GetMaxYX () (mY, mX int) {
   mY = c.height - 1
   mX = c.width - 1
 
-  c.yMax = mY
-  c.xMax = mX
+  c.YMax = mY
+  c.XMax = mX
 
   return
 }
